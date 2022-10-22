@@ -13,6 +13,11 @@ public class Testlet
     
     public List<Item> Randomize()
     {
+        if(_items == null || _items.Count != 10)
+        {
+            throw new ArgumentException();
+        }
+
         throw new NotImplementedException();
     }
 }
