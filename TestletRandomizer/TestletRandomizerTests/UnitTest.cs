@@ -18,4 +18,11 @@ public class Tests
         var testLet = new Testlet("id", testCase);
         Assert.Throws<ArgumentException>(() => testLet.Randomize());
     }
+    
+    [TestCaseSource(typeof(InvalidCompoundCase))]
+    public void AssertExceptionOnInvalidCompound(List<Item> testCase)
+    {
+        var testLet = new Testlet("id", testCase);
+        Assert.Throws<ArgumentException>(() => testLet.Randomize());
+    }
 }
