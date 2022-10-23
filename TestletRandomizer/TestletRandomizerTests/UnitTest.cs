@@ -31,5 +31,12 @@ public class Tests
     {
         var testLet = new Testlet("id", testCase);
         Assert.DoesNotThrow(() => testLet.Randomize());
+    } 
+    
+    [TestCaseSource(typeof(ValidSourceCase))]
+    public void AssertListShuffled(List<Item> testCase)
+    {
+        var testLet = new Testlet("id", testCase);
+        Assert.False(testLet.Randomize() == testCase);
     }
 }
