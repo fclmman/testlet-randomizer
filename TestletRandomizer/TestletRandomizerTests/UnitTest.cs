@@ -37,7 +37,8 @@ public class Tests
     public void AssertResultHasSameSize(List<Item> testCase)
     {
         var testLet = new Testlet("id", testCase);
-        Assert.True(testLet.Randomize().Count == testCase.Count);
+        var result = testLet.Randomize();
+        Assert.True(result.Count == testCase.Count);
     }
     
     [TestCaseSource(typeof(ValidSourceCase))]
@@ -45,13 +46,26 @@ public class Tests
     {
         var testLet = new Testlet("id", testCase);
         var result = testLet.Randomize();
-        Assert.True(result.All(resultItem => testCase.Contains(resultItem)));
+        Assert.True(result.All(testCase.Contains));
     }
     
     [TestCaseSource(typeof(ValidSourceCase))]
     public void AssertListShuffled(List<Item> testCase)
     {
         var testLet = new Testlet("id", testCase);
-        Assert.False(testLet.Randomize() == testCase);
+        var result = testLet.Randomize();
+        Assert.True(result.Count == testCase.Count);
+
+        var allEqual = true;
+        var i = 0;
+        foreach (var res in result)
+        {
+            if (res != testCase[i])
+            {
+                allEqual = false;
+            }
+            i++;
+        }
+        Assert.False(allEqual);
     }
 }
