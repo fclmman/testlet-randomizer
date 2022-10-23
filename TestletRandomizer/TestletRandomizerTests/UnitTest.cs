@@ -68,4 +68,13 @@ public class Tests
         }
         Assert.False(allEqual);
     }
+    
+    [TestCaseSource(typeof(ValidSourceCase))]
+    public void AssertFirstTwoArePretest(List<Item> testCase)
+    {
+        var testLet = new Testlet("id", testCase);
+        var result = testLet.Randomize();
+        Assert.True(result[0] != null && result[0].ItemType == ItemType.Pretest);
+        Assert.True(result[1] != null && result[1].ItemType == ItemType.Pretest);
+    }
 }
