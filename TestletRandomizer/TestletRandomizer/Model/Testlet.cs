@@ -4,6 +4,7 @@ public class Testlet
 {
     private List<Item> _items;
     private readonly Random random;
+    private const int _pretest = 2;
     public string TestletId { get; init; }
 
     public Testlet(string testletId, List<Item> items)
@@ -20,7 +21,9 @@ public class Testlet
             throw new ArgumentException();
         }
 
-        return Shuffle(_items);
+        var res = Shuffle(_items);
+        MovePretestItemsToStart(res);
+        return res;
     }
 
     private bool ValidateInput()
@@ -36,13 +39,40 @@ public class Testlet
         for (var i = shuffledItems.Count - 1; i >= 0; i--)
         {
             int index = random.Next(i + 1);
-            if (index != i)
+            shuffledItems = ChangePlace(index, i, shuffledItems);
+        }
+
+        return new List<Item>(shuffledItems);
+    }
+
+    private void MovePretestItemsToStart(List<Item> items)
+    {
+        var moved = 0;
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].ItemType == ItemType.Pretest)
             {
-                var tmp = items[index];
-                items[index] = items[i];
-                items[i] = tmp;
+                ChangePlace(i, moved, items);
+                moved+=1;
+            }
+
+            if (moved >= _pretest)
+            {
+                break;
             }
         }
-        return new List<Item>(shuffledItems);
+    }
+
+    private List<Item> ChangePlace(int i, int j, List<Item> items)
+    {
+        if (i == j)
+        {
+            return items;
+        }
+
+        var tmp = items[i];
+        items[i] = items[j];
+        items[j] = tmp;
+        return items;
     }
 }
