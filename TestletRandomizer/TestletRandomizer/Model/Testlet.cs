@@ -18,7 +18,7 @@ public class Testlet
             throw new ArgumentException();
         }
 
-        throw new NotImplementedException();
+        return _items;
     }
 
     private bool ValidateInput()
