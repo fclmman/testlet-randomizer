@@ -31,7 +31,14 @@ public class Tests
     {
         var testLet = new Testlet("id", testCase);
         Assert.DoesNotThrow(() => testLet.Randomize());
-    } 
+    }
+    
+    [TestCaseSource(typeof(ValidSourceCase))]
+    public void AssertResultHasSameSize(List<Item> testCase)
+    {
+        var testLet = new Testlet("id", testCase);
+        Assert.True(testLet.Randomize().Count == testCase.Count);
+    }
     
     [TestCaseSource(typeof(ValidSourceCase))]
     public void AssertListShuffled(List<Item> testCase)
