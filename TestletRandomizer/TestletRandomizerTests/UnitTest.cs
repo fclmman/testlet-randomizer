@@ -41,6 +41,14 @@ public class Tests
     }
     
     [TestCaseSource(typeof(ValidSourceCase))]
+    public void AssertResultHasSameItems(List<Item> testCase)
+    {
+        var testLet = new Testlet("id", testCase);
+        var result = testLet.Randomize();
+        Assert.True(result.All(resultItem => testCase.Contains(resultItem)));
+    }
+    
+    [TestCaseSource(typeof(ValidSourceCase))]
     public void AssertListShuffled(List<Item> testCase)
     {
         var testLet = new Testlet("id", testCase);
