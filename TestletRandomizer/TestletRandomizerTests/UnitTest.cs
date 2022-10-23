@@ -25,4 +25,11 @@ public class Tests
         var testLet = new Testlet("id", testCase);
         Assert.Throws<ArgumentException>(() => testLet.Randomize());
     }
+    
+    [TestCaseSource(typeof(ValidSourceCase))]
+    public void AssertNoExceptionOnValidCompound(List<Item> testCase)
+    {
+        var testLet = new Testlet("id", testCase);
+        Assert.DoesNotThrow(() => testLet.Randomize());
+    }
 }

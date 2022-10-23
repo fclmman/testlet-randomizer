@@ -13,11 +13,17 @@ public class Testlet
     
     public List<Item> Randomize()
     {
-        if(_items == null || _items.Count != 10)
+        if(!ValidateInput())
         {
             throw new ArgumentException();
         }
 
         throw new NotImplementedException();
+    }
+
+    private bool ValidateInput()
+    {
+        var validator = new TestletValidator();
+        return validator.ValidateInput(_items);
     }
 }
